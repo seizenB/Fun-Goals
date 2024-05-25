@@ -1,0 +1,96 @@
+@font-face {
+  font-family: "Inter Semibold";
+  src: url("/fonts/static/Inter-Semibold.ttf");
+}
+
+#root {
+  -fx-background-image: url("/img/Background2.png");
+  /* -fx-background-repeat: stretch; */
+  -fx-background-size: cover;
+  -fx-background-position: center center;
+  -fx-padding: 60 66 60 66;
+}
+
+#hBox {
+  -fx-background-color: rgba(44, 47, 72, 0.5);
+  -fx-background-radius: 10;
+}
+
+#started {
+  -fx-font-family: "Inter Semibold";
+  -fx-font-size: 35px;
+  -fx-text-fill: white;
+}
+
+#vBox-wrapper {
+  /* -fx-pref-width: 600; */
+  /* -fx-background-color: black; */
+  /* -fx-padding: 150 240 150 0; */
+}
+
+#vBox {
+  /* -fx-background-color: white; */
+  -fx-background-color: rgba(29, 32, 62, 0.3);
+  -fx-background-radius: 20px;
+}
+
+#vBox2 {
+  -fx-pref-width: 600;
+}
+
+#hello {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 50px;
+  -fx-padding: 94 0 0 50;
+}
+
+#welcome {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 40px;
+  -fx-padding: 7 0 0 50;
+}
+
+#desc {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: #2c2f48;
+  -fx-font-size: 40px;
+  -fx-padding: 12 0 0 50;
+}
+
+#startedWrapper {
+  -fx-alignment: center;
+}
+
+#buttonWrapper {
+  -fx-alignment: center;
+}
+
+#signin {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+  -fx-background-color: #2c2f48;
+  -fx-background-radius: 30px;
+  -fx-pref-width: 300px;
+  -fx-cursor: hand;
+}
+
+#signin:hover {
+  -fx-background-color: #676a80;
+}
+
+#signup {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+  -fx-background-color: #2c2f48;
+  -fx-background-radius: 30px;
+  -fx-pref-width: 300px;
+  -fx-cursor: hand;
+}
+
+#signup:hover {
+  -fx-background-color: #676a80;
+}
