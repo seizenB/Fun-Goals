@@ -94,3 +94,19 @@
 #signup:hover {
   -fx-background-color: #676a80;
 }
+
+#minibold {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 15px; 
+  -fx-font-weight: 600; 
+  -fx-line-height: 18.15px; 
+  -fx-alignment: center right; 
+
+}
+
+#vBoxSigninWrapper {
+  -fx-pref-width: 422px;
+  -fx-pref-height: 534px;
+}
+
