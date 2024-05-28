@@ -110,3 +110,115 @@
   -fx-pref-height: 534px;
 }
 
+#backgroundpane {
+  -fx-background-color: #2C2F48; 
+  -fx-background-radius: 16px;
+}
+
+.dream {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: #D0B9D3;
+  -fx-font-size: 20px;
+  -fx-background-color: rgba(44, 47, 72, 0.5);
+  -fx-background-radius: 20px;
+  -fx-pref-width: 278px;
+  -fx-pref-height: 76px;
+  -fx-cursor: hand;
+  -fx-alignment: center-left; 
+  -fx-padding: 0 0 0 70px; 
+  -fx-background-size: 45px 45px;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: 10px center; 
+}
+
+.dream:hover {
+  -fx-background-color: #2C2F48;
+}
+
+
+#pendidikanAnak {
+  -fx-background-image: url('/img/anak.png'); 
+}
+
+#danaDarurat {
+  -fx-background-image: url('/img/darurat.png'); 
+}
+
+#liburan {
+  -fx-background-image: url('/img/liburan.png'); 
+}
+
+#investasi {
+  -fx-background-image: url('/img/investasi.png'); 
+}
+
+#pensiun {
+  -fx-background-image: url('/img/pensiun.png'); 
+}
+
+#barang {
+  -fx-background-image: url('/img/barang.png'); 
+}
+
+#menikah {
+  -fx-background-image: url('/img/menikah.png'); 
+}
+
+#kendaraan {
+  -fx-background-image: url('/img/kendaraan.png'); 
+}
+
+#hBoxinput {
+  -fx-alignment: CENTER_LEFT;
+  -fx-spacing: 10;
+}
+
+#input {
+  -fx-font-family: "Inter Semibold";
+  -fx-font-size: 20px;
+  -fx-text-fill: white;
+}
+
+#ket{
+  -fx-font-family: "Inter Semibold";
+  -fx-font-size: 20px;
+  -fx-text-fill: #D0B9D3;
+}
+
+#field {
+  -fx-background-color: #676A80; 
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;       
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  -fx-pref-width: 209px;      
+  -fx-pref-height: 38px; 
+}
+
+#field2 {
+  -fx-background-color: #676A80; 
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;       
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  -fx-pref-width: 78px;      
+  -fx-pref-height: 38px; 
+}
+
+#hasil {
+  -fx-background-color: #D9D9D9; 
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: #2C2F48;
+  -fx-font-size: 20px;       
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;      
+  -fx-pref-height: 48px;
+  -fx-cursor: hand;
+}
+
+#hasil:hover {
+  -fx-background-color: #D0B9D3;
+}
+
