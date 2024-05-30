@@ -18,11 +18,18 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
+       // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
+    
+    // JavaFX dependencies
+    implementation 'org.openjfx:javafx-controls:21.0.2'
+    implementation 'org.openjfx:javafx-fxml:21.0.2'
+
+    // SQLite JDBC driver
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
 }
 
 application {
