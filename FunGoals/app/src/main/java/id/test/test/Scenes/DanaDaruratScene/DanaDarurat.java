@@ -337,6 +337,10 @@ public class DanaDarurat extends VBox implements Method {
         tips.append("- Lama investasi: ").append(Method.formatDouble(model.getLamaTargetMengumpulkan())).append("\n");
         tips.append("- Hasil investasi: Rp").append(Method.formatNumber(model.getHasilInvestasi())).append(" (kurang ")
                 .append(Method.formatNumber(model.getHasilDanaDarurat() - model.getHasilInvestasi())).append(")\n");
+        tips.append("\nTips agar rencana kamu lebih realistis:\n");
+        tips.append("- Tingkatkan jumlah investasi bulanan.\n");
+        tips.append("- Cari produk investasi dengan return yang lebih tinggi.\n");
+        tips.append("- Tambahkan waktu untuk mencapai targetmu.\n");
         return tips.toString();
     }
 }

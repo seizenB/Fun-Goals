@@ -473,6 +473,10 @@ public class DanaPensiun extends VBox implements Method {
         tips.append("- Lama investasi: ").append(DanaPensiun.formatDouble(model.getLamaWaktuPensiun())).append("\n");
         tips.append("- Hasil investasi: Rp").append(Method.formatNumber(model.getHasilInvestasi())).append(" (kurang ")
                 .append(Method.formatNumber(model.getUangYangDibutuhkan() - model.getHasilInvestasi())).append(")\n");
+        tips.append("\nTips agar rencana kamu lebih realistis:\n");
+        tips.append("- Tingkatkan jumlah investasi bulanan.\n");
+        tips.append("- Cari produk investasi dengan return yang lebih tinggi.\n");
+        tips.append("- Tunda untuk pensiun.\n");
         return tips.toString();
     }
 
