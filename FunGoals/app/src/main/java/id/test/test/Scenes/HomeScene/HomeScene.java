@@ -1,5 +1,6 @@
 package id.test.test;
 
+import id.test.test.Utils.AlertHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -11,6 +12,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class HomeScene {
     private Stage stage;
@@ -95,7 +98,7 @@ public class HomeScene {
 
         danaDarurat.setOnAction(e -> {
             backgroundPane.getChildren().clear();
-            DanaDarurat danaDaruratPane = new DanaDarurat();
+            DanaDarurat danaDaruratPane = new DanaDarurat(backgroundPane);
             StackPane.setAlignment(danaDaruratPane, Pos.CENTER);
             backgroundPane.getChildren().add(danaDaruratPane);
         });
@@ -113,9 +116,44 @@ public class HomeScene {
             StackPane.setAlignment(barangPane, Pos.CENTER);
             backgroundPane.getChildren().add(barangPane);
         });
+
+        pendidikanAnak.setOnAction(e -> {
+            showComingSoonAlert();
+        });
+
+        liburan.setOnAction(e -> {
+            showComingSoonAlert();
+        });
+
+        investasi.setOnAction(e -> {
+            showComingSoonAlert();
+        });
+
+        menikah.setOnAction(e -> {
+            showComingSoonAlert();
+        });
+
+        kendaraan.setOnAction(e -> {
+            showComingSoonAlert();
+        });
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    public static void showComingSoonAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Coming Soon");
+        alert.setContentText("This feature is coming soon. Stay tuned!");
+        alert.getDialogPane().setId("alert");
+
+        // Tambahkan file CSS ke alert (jika ada)
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alert.getDialogPane().getStylesheets().add(
+                AlertHelper.class.getResource("/styles/style.css").toExternalForm());
+
+        alert.showAndWait();
     }
 }

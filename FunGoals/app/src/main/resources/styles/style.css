@@ -183,6 +183,12 @@
   -fx-text-fill: #d0b9d3;
 }
 
+#error {
+  -fx-font-family: "Inter Semibold";
+  -fx-font-size: 20px;
+  -fx-text-fill: red;
+}
+
 #field {
   -fx-background-color: #676a80;
   -fx-font-family: "Inter Semibold";
@@ -205,6 +211,12 @@
   -fx-pref-height: 38px;
 }
 
+#tahun {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+}
+
 #besardp {
   -fx-font-family: "Inter Semibold";
   -fx-text-fill: white;
@@ -218,6 +230,24 @@
 }
 
 #pokokUtang {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+}
+
+#uangYangDibutuhkan {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+}
+
+#rp2 {
+  -fx-font-family: "Inter Semibold";
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+}
+
+#masaPensiun {
   -fx-font-family: "Inter Semibold";
   -fx-text-fill: white;
   -fx-font-size: 20px;
@@ -257,4 +287,35 @@
 
 #hasil:hover {
   -fx-background-color: #d0b9d3;
+}
+
+#alert {
+  -fx-background-color: #2c2f48;
+  -fx-min-width: 500; /* Minimum width */
+  -fx-min-height: 200px; /* Minimum height */
+
+  -fx-font-size: 14px;
+  -fx-font-family: "Inter Semibold";
+  -fx-padding: 10;
+  -fx-text-fill: white;
+}
+
+#alert .dialog-pane {
+  -fx-background-color: #2c2f48;
+  -fx-border-width: 2;
+  -fx-text-fill: white;
+}
+
+#alert .header-panel {
+  -fx-background-color: #2c2f48;
+}
+
+#alert .header-panel .label {
+  -fx-text-fill: white;
+}
+
+#alert .content {
+  -fx-padding: 10;
+  -fx-text-fill: white;
+  -fx-wrap-text: true; /* Membuat teks dapat membungkus */
 }

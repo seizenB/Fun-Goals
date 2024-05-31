@@ -86,15 +86,21 @@ public class MenuSignup {
     }
 
     private void handleSignUp() {
-        String name = nameField.getText();
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String name = nameField.getText().trim();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+
+        if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            AlertHelper.showErrorAlert("Name, username, and password cannot be empty or just spaces.");
+            return;
+        }
 
         User user = new User(name, username, password);
 
         if (DatabaseManager.signUp(user)) {
             AlertHelper.showInfoAlert("Sign up successful!");
             // Transition to the Sign-in menu
+            nameField.clear();
             usernameField.clear();
             passwordField.clear();
             transitionToSignIn();

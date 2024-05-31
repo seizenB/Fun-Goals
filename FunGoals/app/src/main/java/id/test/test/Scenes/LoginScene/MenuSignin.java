@@ -78,8 +78,13 @@ public class MenuSignin {
     }
 
     private void handleSignIn() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            AlertHelper.showErrorAlert("Username and password cannot be empty or just spaces.");
+            return;
+        }
 
         User user = new User("", username, password);
 

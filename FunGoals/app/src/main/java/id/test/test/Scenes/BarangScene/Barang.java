@@ -11,8 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
-public class Barang extends VBox {
+public class Barang extends VBox implements Method {
     private VBox vBox;
     private BarangModel model;
 
@@ -24,13 +26,34 @@ public class Barang extends VBox {
         Label capaiMimpi = new Label("Kamu ingin mencapai mimpi kamu");
         capaiMimpi.setId("input");
 
-        TextField textField1 = createIntegerField(model::setBulanLagi, "Masukan nilai yang valid");
+        TextField textField1 = Method.createIntegerField(model::setBulanLagi, "Masukan nilai yang valid");
         Label bulan = new Label("Bulan lagi");
         bulan.setId("ket");
 
+        Label error1 = new Label("");
+        error1.setId("error");
+
         HBox hBox1 = new HBox();
         hBox1.setId("hBoxinput");
-        hBox1.getChildren().addAll(textField1, bulan);
+        hBox1.getChildren().addAll(textField1, bulan, error1);
+
+        textField1.setOnKeyReleased(e -> {
+            try {
+                if (!textField1.getText().isEmpty()) {
+                    error1.setText("");
+                    int bulanLagi = Integer.parseInt(textField1.getText());
+                    model.setBulanLagi(bulanLagi);
+                } else {
+                    error1.setText("");
+                    if (textField1 != null) {
+                        textField1.setText("");
+                    }
+                }
+            } catch (NumberFormatException error) {
+                textField1.clear();
+                error1.setText("Masukan nilai yang valid");
+            }
+        });
 
         Label harga = new Label("Harga barang impianmu saat ini");
         harga.setId("input");
@@ -39,7 +62,7 @@ public class Barang extends VBox {
         rp1.setId("ket");
 
         Label error = new Label("");
-        error.setId("ket");
+        error.setId("error");
 
         TextField hargaBarang = new TextField();
         hargaBarang.setId("field");
@@ -53,7 +76,7 @@ public class Barang extends VBox {
         dp.setId("input");
 
         Label error2 = new Label();
-        error2.setId("ket");
+        error2.setId("error");
 
         TextField downPayment = new TextField();
         downPayment.setId("field2");
@@ -127,19 +150,6 @@ public class Barang extends VBox {
         this.getChildren().add(buttonBox);
 
         nextButton.setOnAction(event -> switchToSecondForm(buttonBox));
-    }
-
-    private TextField createIntegerField(ValueSetter<Integer> setter, String errorMessage) {
-        TextField textField = new TextField();
-        textField.setId("field2");
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                setter.setValue(Integer.parseInt(newValue));
-            } catch (NumberFormatException e) {
-                setter.setValue(0);
-            }
-        });
-        return textField;
     }
 
     private void handleHargaBarangInput(TextField hargaBarang, Label error) {
@@ -235,19 +245,19 @@ public class Barang extends VBox {
         Label asumsi = new Label("Asumsi inflasi harga");
         asumsi.setId("input");
 
-        TextField asumsiInflasi = createDoubleField(model::setAsumsiInflasi, "Masukan nilai yang valid");
+        TextField asumsiInflasi = Method.createDoubleField(model::setAsumsiInflasi, "Masukan nilai yang valid");
         Label persenTahun = new Label("%/tahun");
         persenTahun.setId("ket");
 
         Label error3 = new Label("");
-        error3.setId("ket");
+        error3.setId("error");
         asumsiInflasi.setOnKeyReleased(event -> handleRp4(asumsiInflasi, error3));
 
         HBox hBox7 = new HBox();
         hBox7.setId("hBoxinput");
         hBox7.getChildren().addAll(asumsiInflasi, persenTahun, error3);
 
-        Label total = new Label("Total uang yang kamu perlukan " + model.getBulanLagi() + " lagi untuk bayar DP");
+        Label total = new Label("Total uang yang kamu perlukan " + model.getBulanLagi() + " bulan lagi untuk bayar DP");
         total.setId("input");
 
         Label rp4 = new Label("Rp.");
@@ -266,12 +276,33 @@ public class Barang extends VBox {
         Label rp5 = new Label("Rp.");
         rp5.setId("ket");
 
-        TextField uangSaatIni = createDoubleField(model::setUangSaatIni, "Masukan nilai yang valid");
+        TextField uangSaatIni = Method.createDoubleField(model::setUangSaatIni, "Masukan nilai yang valid");
         uangSaatIni.setId("uangSaatIni");
+
+        Label error4 = new Label();
+        error4.setId("error");
 
         HBox hBox9 = new HBox();
         hBox9.setId("hBoxinput");
-        hBox9.getChildren().addAll(rp5, uangSaatIni);
+        hBox9.getChildren().addAll(rp5, uangSaatIni, error4);
+
+        uangSaatIni.setOnKeyReleased(e -> {
+            try {
+                if (!uangSaatIni.getText().isEmpty()) {
+                    error4.setText("");
+                    double uangSaatIniValue = Double.parseDouble(uangSaatIni.getText());
+                    model.setUangSaatIni(uangSaatIniValue);
+                } else {
+                    error4.setText("");
+                    if (uangSaatIni != null) {
+                        uangSaatIni.setText("");
+                    }
+                }
+            } catch (NumberFormatException error) {
+                uangSaatIni.clear();
+                error4.setText("Masukan nilai yang valid");
+            }
+        });
 
         Label targetInvestasi = new Label("Target investasimu tiap bulan");
         targetInvestasi.setId("input");
@@ -279,23 +310,48 @@ public class Barang extends VBox {
         Label rp6 = new Label("Rp.");
         rp6.setId("ket");
 
-        TextField target = createDoubleField(model::setTargetInvestasiBulanan, "Masukan nilai yang valid");
+        TextField target = Method.createDoubleField(model::setTargetInvestasiBulanan, "Masukan nilai yang valid");
         target.setId("uangSaatIni");
+
+        Label error5 = new Label();
+        error5.setId("error");
 
         HBox hBox10 = new HBox();
         hBox10.setId("hBoxinput");
-        hBox10.getChildren().addAll(rp6, target);
+        hBox10.getChildren().addAll(rp6, target, error5);
+
+        target.setOnKeyReleased(e -> {
+            try {
+                if (!target.getText().isEmpty()) {
+                    double targetValue = Double.parseDouble(target.getText());
+                    model.setReturnInvestasiTahunan(targetValue);
+                    handleRutin(target);
+                    error5.setText("");
+                } else {
+                    error5.setText("");
+                    if (target != null) {
+                        target.setText("");
+                    }
+                }
+            } catch (NumberFormatException error) {
+                target.clear();
+                error5.setText("Masukan nilai yang valid");
+            }
+        });
 
         Label invest = new Label("Kamu akan investasi di produk yang return-nya");
         invest.setId("input");
 
-        TextField lnvestProduk = createDoubleField(model::setReturnInvestasiTahunan, "Masukan nilai yang valid");
+        TextField lnvestProduk = Method.createDoubleField(model::setReturnInvestasiTahunan, "Masukan nilai yang valid");
         Label investasi = new Label("%/tahun");
         investasi.setId("ket");
 
+        Label error6 = new Label();
+        error6.setId("error");
+
         HBox hBox11 = new HBox();
         hBox11.setId("hBoxinput");
-        hBox11.getChildren().addAll(lnvestProduk, investasi);
+        hBox11.getChildren().addAll(lnvestProduk, investasi, error6);
 
         Label berinvestasi = new Label("Kamu akan rutin berinvestasi selama");
         berinvestasi.setId("input");
@@ -303,7 +359,24 @@ public class Barang extends VBox {
         Label rutin = new Label();
         rutin.setId("rutin");
 
-        lnvestProduk.setOnKeyReleased(event -> handleRutin(lnvestProduk));
+        lnvestProduk.setOnKeyReleased(e -> {
+            try {
+                if (!lnvestProduk.getText().isEmpty()) {
+                    double lnvestProdukValue = Double.parseDouble(lnvestProduk.getText());
+                    model.setReturnInvestasiTahunan(lnvestProdukValue);
+                    handleRutin(lnvestProduk);
+                    error6.setText("");
+                } else {
+                    error6.setText("");
+                    if (lnvestProduk != null) {
+                        lnvestProduk.setText("");
+                    }
+                }
+            } catch (NumberFormatException error) {
+                lnvestProduk.clear();
+                error6.setText("Masukan nilai yang valid");
+            }
+        });
 
         Label berinvest = new Label("Bulan");
         berinvest.setId("ket");
@@ -339,7 +412,7 @@ public class Barang extends VBox {
     private void handleRp4(TextField asumsiInflasi, Label error3) {
         try {
             if (!asumsiInflasi.getText().isEmpty()) {
-                int asumsiInflasiValue = Integer.parseInt(asumsiInflasi.getText());
+                double asumsiInflasiValue = Double.parseDouble(asumsiInflasi.getText());
                 model.setAsumsiInflasi(asumsiInflasiValue);
                 error3.setText("");
                 updateRp4Label();
@@ -371,19 +444,6 @@ public class Barang extends VBox {
         } catch (NumberFormatException e) {
             investProduct.clear();
         }
-    }
-
-    private TextField createDoubleField(ValueSetter<Double> setter, String errorMessage) {
-        TextField textField = new TextField();
-        textField.setId("field2");
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                setter.setValue(Double.parseDouble(newValue));
-            } catch (NumberFormatException e) {
-                setter.setValue(0.0);
-            }
-        });
-        return textField;
     }
 
     @FunctionalInterface
@@ -420,39 +480,29 @@ public class Barang extends VBox {
     }
 
     private void showResultScene(String title, String message) {
-        Stage resultStage = new Stage();
-        VBox resultVBox = new VBox();
-        resultVBox.setSpacing(20);
-        resultVBox.setPadding(new Insets(20));
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Evaluasi Rencana");
+        alert.setHeaderText(title);
+        alert.setContentText(message.toString());
+        alert.getDialogPane().setId("alert");
 
-        Label titleLabel = new Label(title);
-        titleLabel.setId("resultTitle");
-        Label messageLabel = new Label(message);
-        messageLabel.setId("resultMessage");
-        messageLabel.setWrapText(true); // Membuat teks dapat menyesuaikan lebar label
+        // Tambahkan file CSS ke alert
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        Scene scene = stage.getScene();
+        scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
 
-        resultVBox.getChildren().addAll(titleLabel, messageLabel);
-
-        Scene resultScene = new Scene(resultVBox, 400, 300); // Ukuran scene baru
-        resultStage.setScene(resultScene);
-        resultStage.setTitle("Hasil Evaluasi Rencana");
-        resultStage.show();
+        alert.showAndWait();
     }
 
     private String getTips(double totalUangDiperlukan, double totalInvestasi) {
         StringBuilder tips = new StringBuilder();
-        tips.append("Total uang yang diperlukan: Rp. ").append(formatNumber(totalUangDiperlukan)).append("\n");
-        tips.append("Total uang yang akan terkumpul: Rp. ").append(formatNumber(totalInvestasi)).append("\n");
-        tips.append("Tips agar rencana kamu lebih realistis:\n");
+        tips.append("Total uang yang diperlukan: Rp. ").append(Method.formatNumber(totalUangDiperlukan)).append("\n");
+        tips.append("Total uang yang akan terkumpul: Rp. ").append(Method.formatNumber(totalInvestasi)).append("\n");
+        tips.append("\nTips agar rencana kamu lebih realistis:\n");
         tips.append("- Tingkatkan jumlah investasi bulanan.\n");
         tips.append("- Cari produk investasi dengan return yang lebih tinggi.\n");
         tips.append("- Kurangi target harga barang atau DP yang diinginkan.\n");
         tips.append("- Tambahkan waktu untuk mencapai targetmu.\n");
         return tips.toString();
-    }
-
-    private String formatNumber(double number) {
-        DecimalFormat df = new DecimalFormat("###,###,###.00");
-        return df.format(number);
     }
 }
