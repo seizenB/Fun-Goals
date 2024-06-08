@@ -1,19 +1,24 @@
 package id.test.test;
 
 import id.test.test.Utils.AlertHelper;
+import id.test.test.Scenes.LoginScene;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import java.util.Optional;
 
 public class HomeScene {
     private Stage stage;
@@ -65,6 +70,19 @@ public class HomeScene {
         kendaraan.setId("kendaraan");
         kendaraan.getStyleClass().add("dream");
 
+        Button logoutButton = new Button();
+        logoutButton.setId("logoutButton");
+
+        Image logoutIcon = new Image(getClass().getResourceAsStream("/img/Logout.png"));
+        ImageView logoutImageView = new ImageView(logoutIcon);
+
+        logoutImageView.setFitWidth(50);
+        logoutImageView.setFitHeight(40);
+
+        logoutButton.setGraphic(logoutImageView);
+
+        logoutButton.setOnAction(e -> showLogoutConfirmation());
+
         VBox vboxForTextAndButton = new VBox();
         vboxForTextAndButton.setAlignment(Pos.TOP_LEFT);
         vboxForTextAndButton.setSpacing(20);
@@ -73,25 +91,24 @@ public class HomeScene {
                 investasi, menikah, kendaraan);
 
         StackPane backgroundPane = new StackPane();
-        backgroundPane.setPrefSize(955, 760);
+        backgroundPane.setPrefSize(970, 760);
         backgroundPane.setId("backgroundpane");
-        StackPane.setAlignment(backgroundPane, Pos.TOP_RIGHT);
-        StackPane.setMargin(backgroundPane, new Insets(30, 30, 20, 320));
+
+        VBox vboxForBackgroundPane = new VBox(backgroundPane);
+        vboxForBackgroundPane.setAlignment(Pos.CENTER);
+        vboxForBackgroundPane.setPadding(new Insets(20, 0, 20, 0));
 
         HBox hBox = new HBox();
         hBox.setId("hBox");
         hBox.setAlignment(Pos.TOP_LEFT);
-        hBox.getChildren().addAll(vboxForTextAndButton, backgroundPane);
+        hBox.getChildren().addAll(vboxForTextAndButton, vboxForBackgroundPane);
 
-        StackPane wrapper = new StackPane(hBox);
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.TOP_RIGHT);
+        vBox.getChildren().addAll(logoutButton, hBox);
+
+        StackPane wrapper = new StackPane(vBox);
         root.getChildren().add(wrapper);
-
-        StackPane containerPane = new StackPane();
-        containerPane.setAlignment(Pos.TOP_LEFT);
-
-        containerPane.getChildren().addAll(hBox, backgroundPane);
-
-        root.getChildren().add(containerPane);
 
         scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
         scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
@@ -155,5 +172,18 @@ public class HomeScene {
                 AlertHelper.class.getResource("/styles/style.css").toExternalForm());
 
         alert.showAndWait();
+    }
+
+    private void showLogoutConfirmation() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout Confirmation");
+        alert.setHeaderText("Are you sure you want to logout?");
+        alert.setContentText("Press OK to confirm or Cancel to stay.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            LoginScene loginScene = new LoginScene(stage);
+            stage.setScene(loginScene.getScene());
+        }
     }
 }
