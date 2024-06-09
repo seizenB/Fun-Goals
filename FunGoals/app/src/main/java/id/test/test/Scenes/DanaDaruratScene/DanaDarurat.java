@@ -43,9 +43,12 @@ public class DanaDarurat extends VBox implements Method {
         Label error1 = new Label();
         error1.setId("error");
 
+        Label textField1Info = Method.makeTooltip(
+                "Hitung besarnya pengeluaran pokok bulanan mu. Pengeluaran untuk nongkrong dan lain lain tidak termasuk.\n\nContoh : Bayar kos 2,5jt, listrik 500k, pulsa 150k, transport 1jt. Berarti kolom ini diisi 3,250,000.");
+
         HBox hBox1 = new HBox();
         hBox1.setId("hBoxinput");
-        hBox1.getChildren().addAll(rp, textField1, error1);
+        hBox1.getChildren().addAll(rp, textField1, error1, textField1Info);
 
         textField1.setOnKeyReleased(e -> {
             try {
@@ -77,9 +80,12 @@ public class DanaDarurat extends VBox implements Method {
         Label error2 = new Label();
         error2.setId("error");
 
+        Label textField2Info = Method.makeTooltip(
+                "Banyaknya orang yang bergantung pada penghasilanmu.\n\nContoh: orang tua, anak/istri, saudara, tetangga, istri tetangga, dll.");
+
         HBox hBox2 = new HBox();
         hBox2.setId("hBoxinput");
-        hBox2.getChildren().addAll(textField2, orang, error2);
+        hBox2.getChildren().addAll(textField2, orang, error2, textField2Info);
 
         textField2.setOnKeyReleased(e -> {
             try {
@@ -111,9 +117,11 @@ public class DanaDarurat extends VBox implements Method {
         Label error3 = new Label();
         error3.setId("error");
 
+        Label textField3Info = Method.makeTooltip("Berapa lama targetmu sampai dana daruratmu terkumpul sepenuhnya?");
+
         HBox hBox3 = new HBox();
         hBox3.setId("hBoxinput");
-        hBox3.getChildren().addAll(textField3, bulan, error3);
+        hBox3.getChildren().addAll(textField3, bulan, error3, textField3Info);
 
         textField3.setOnKeyReleased(e -> {
             try {
@@ -133,7 +141,7 @@ public class DanaDarurat extends VBox implements Method {
             }
         });
 
-        Label jumlah = new Label("Jumlah dana darurat yang kamu miliki saat ini");
+        Label jumlah = new Label("Jumlah dana darurat yang kamu miliki saat ini.");
         jumlah.setId("input");
 
         Label rp2 = new Label("Rp.");
@@ -145,9 +153,12 @@ public class DanaDarurat extends VBox implements Method {
         Label error4 = new Label();
         error4.setId("error");
 
+        Label textField4Info = Method.makeTooltip(
+                "Berapa jumlah dana darurat yang telah kamu kumpulkan saat ini?\n\nContoh: uang kamu saat ini adalah 10.000.000, namun uang yang kamu sisihkan khusus untuk dana darurat hanya 1.000.000 maka isi 1.000.000 pada kolom.");
+
         HBox hBox4 = new HBox();
         hBox4.setId("hBoxinput");
-        hBox4.getChildren().addAll(rp2, textField4, error4);
+        hBox4.getChildren().addAll(rp2, textField4, error4, textField4Info);
 
         textField4.setOnKeyReleased(e -> {
             try {
@@ -180,9 +191,12 @@ public class DanaDarurat extends VBox implements Method {
         Label error5 = new Label();
         error5.setId("error");
 
+        Label textField5Info = Method.makeTooltip(
+                "Jumlah uang yang akan kamu tabung khusus unutuk dana darurat.\n\nContoh: memiliki penghasilan 5.000.000/bulan dan kamu menyisihkan 500.000 untuk dana pernikahan dan 500.000 untuk dana darurat. Maka kamu harus mengisi 500.000 pada kolom.");
+
         HBox hBox5 = new HBox();
         hBox5.setId("hBoxinput");
-        hBox5.getChildren().addAll(rp3, textField5, error5);
+        hBox5.getChildren().addAll(rp3, textField5, error5, textField5Info);
 
         textField5.setOnKeyReleased(e -> {
             try {
@@ -206,7 +220,7 @@ public class DanaDarurat extends VBox implements Method {
         investasi.setId("input");
 
         TextField textField6 = Method.createDoubleField(model::setReturnInvestasiPerTahun, "Masukkan nilai yang valid");
-        textField6.setId("field");
+        textField6.setId("field2");
 
         Label tahun = new Label("%/tahun");
         tahun.setId("ket");
@@ -214,9 +228,12 @@ public class DanaDarurat extends VBox implements Method {
         Label error6 = new Label();
         error6.setId("error");
 
+        Label textField6Info = Method.makeTooltip(
+                "Jika kamu akan menaruh dana darurat pada instrumen investasi, masukkan perkiraan return tahunannya. Disarankan aset yang lebih rendah risiko, dengan return maksimal ~10% per tahun.\n\nKamu boleh masukkan data desimal dengan menggunakan titik, misal 5.75% atau 10.5%.");
+
         HBox hBox6 = new HBox();
         hBox6.setId("hBoxinput");
-        hBox6.getChildren().addAll(textField6, tahun, error6);
+        hBox6.getChildren().addAll(textField6, tahun, error6, textField6Info);
 
         textField6.setOnKeyReleased(e -> {
             try {

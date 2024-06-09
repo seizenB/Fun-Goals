@@ -1,8 +1,16 @@
 package id.test.test;
 
 import java.text.DecimalFormat;
-import id.test.test.Barang.ValueSetter;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.util.Optional;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
+import id.test.test.Barang.ValueSetter;
 
 public interface Method {
     public static String formatDouble(double value) {
@@ -72,5 +80,30 @@ public interface Method {
             }
         });
         return textField;
+    }
+
+    public static Label makeTooltip(String message) {
+        Image info = new Image(Method.class.getResourceAsStream("/img/info.png"));
+        ImageView infoView = new ImageView(info);
+
+        infoView.setFitWidth(20);
+        infoView.setFitHeight(20);
+
+        Tooltip textFieldtooltip = new Tooltip(message);
+        textFieldtooltip.setMaxWidth(300);
+        textFieldtooltip.setId("custom-tooltip");
+
+        // Menggunakan Label untuk mendukung Tooltip
+        Label infoLabel = new Label("", infoView);
+        Tooltip.install(infoLabel, textFieldtooltip);
+
+        infoLabel.setOnMouseClicked(event -> {
+            if (textFieldtooltip.isShowing()) {
+                textFieldtooltip.hide();
+            } else {
+                textFieldtooltip.show(infoLabel, event.getScreenX(), event.getScreenY() + 10);
+            }
+        });
+        return infoLabel;
     }
 }

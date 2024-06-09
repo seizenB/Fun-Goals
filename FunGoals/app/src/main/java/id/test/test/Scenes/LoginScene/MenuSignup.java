@@ -1,5 +1,6 @@
 package id.test.test.Scenes;
 
+import id.test.test.HomeScene;
 import id.test.test.Database.DatabaseManager;
 import id.test.test.Models.User;
 import id.test.test.Utils.AlertHelper;
@@ -12,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.scene.control.PasswordField;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MenuSignup {
     private VBox vBoxSignupWrapper;
@@ -90,23 +93,37 @@ public class MenuSignup {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
+        String usernamePattern = "^.{5,15}$";
+        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
         if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
             AlertHelper.showErrorAlert("Name, username, and password cannot be empty or just spaces.");
             return;
         }
 
-        User user = new User(name, username, password);
+        if (validate(username, usernamePattern) && validate(password, passwordPattern)) {
+            User user = new User(name, username, password);
 
-        if (DatabaseManager.signUp(user)) {
-            AlertHelper.showInfoAlert("Sign up successful!");
-            // Transition to the Sign-in menu
-            nameField.clear();
-            usernameField.clear();
-            passwordField.clear();
-            transitionToSignIn();
+            if (DatabaseManager.signUp(user)) {
+                AlertHelper.showInfoAlert("Sign up successful!");
+                // Transition to the Sign-in menu
+                nameField.clear();
+                usernameField.clear();
+                passwordField.clear();
+                transitionToSignIn();
+            } else {
+                AlertHelper.showErrorAlert("Username already taken or error.");
+            }
         } else {
-            AlertHelper.showErrorAlert("Username already taken or error.");
+            AlertHelper.showErrorAlert(
+                    "Username must be 5-15 characters long.\n\nPassword must contain at least one lowercase letter, one uppercase letter, one number, and one special character (@$!%*?&). Minimum length is 8 characters.");
         }
+    }
+
+    private boolean validate(String input, String pattern) {
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(input);
+        return m.matches();
     }
 
     private void transitionToSignIn() {

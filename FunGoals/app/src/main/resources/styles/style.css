@@ -328,3 +328,12 @@
   -fx-border-radius: 0;
   -fx-cursor: hand;
 }
+
+#custom-tooltip {
+  -fx-font-size: 12px; /* Atur ukuran font jika diperlukan */
+  -fx-wrap-text: true; /* Bungkus teks agar sesuai dengan lebar */
+}
+
+#c {
+  -fx-background-color: black;
+}

@@ -20,6 +20,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.util.Optional;
 
+import javax.swing.GroupLayout.Alignment;
+
 public class HomeScene {
     private Stage stage;
     private Scene scene;
@@ -76,8 +78,8 @@ public class HomeScene {
         Image logoutIcon = new Image(getClass().getResourceAsStream("/img/Logout.png"));
         ImageView logoutImageView = new ImageView(logoutIcon);
 
-        logoutImageView.setFitWidth(50);
-        logoutImageView.setFitHeight(40);
+        logoutImageView.setFitWidth(40);
+        logoutImageView.setFitHeight(30);
 
         logoutButton.setGraphic(logoutImageView);
 
@@ -91,24 +93,25 @@ public class HomeScene {
                 investasi, menikah, kendaraan);
 
         StackPane backgroundPane = new StackPane();
-        backgroundPane.setPrefSize(970, 760);
+        backgroundPane.setPrefSize(955, 760);
         backgroundPane.setId("backgroundpane");
-
-        VBox vboxForBackgroundPane = new VBox(backgroundPane);
-        vboxForBackgroundPane.setAlignment(Pos.CENTER);
-        vboxForBackgroundPane.setPadding(new Insets(20, 0, 20, 0));
+        StackPane.setAlignment(backgroundPane, Pos.TOP_RIGHT);
+        StackPane.setMargin(backgroundPane, new Insets(30, 30, 20, 320));
 
         HBox hBox = new HBox();
         hBox.setId("hBox");
         hBox.setAlignment(Pos.TOP_LEFT);
-        hBox.getChildren().addAll(vboxForTextAndButton, vboxForBackgroundPane);
+        hBox.getChildren().addAll(vboxForTextAndButton, backgroundPane);
 
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.TOP_RIGHT);
-        vBox.getChildren().addAll(logoutButton, hBox);
-
-        StackPane wrapper = new StackPane(vBox);
+        StackPane wrapper = new StackPane(hBox);
         root.getChildren().add(wrapper);
+
+        StackPane containerPane = new StackPane();
+        containerPane.setAlignment(Pos.TOP_RIGHT);
+
+        containerPane.getChildren().addAll(hBox, backgroundPane, logoutButton);
+
+        root.getChildren().add(containerPane);
 
         scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
         scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
@@ -117,7 +120,7 @@ public class HomeScene {
             backgroundPane.getChildren().clear();
             DanaDarurat danaDaruratPane = new DanaDarurat(backgroundPane);
             StackPane.setAlignment(danaDaruratPane, Pos.CENTER);
-            backgroundPane.getChildren().add(danaDaruratPane);
+            backgroundPane.getChildren().addAll(danaDaruratPane);
         });
 
         danaPensiun.setOnAction(e -> {

@@ -1,6 +1,8 @@
 package id.test.test;
 
 import java.text.DecimalFormat;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.Priority;
 import id.test.test.Models.BarangModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,9 +35,12 @@ public class Barang extends VBox implements Method {
         Label error1 = new Label("");
         error1.setId("error");
 
+        Label textField1Info = Method.makeTooltip(
+                "Berapa lama lagi kamu ingin membeli barang impianmu.\n\nContoh: saat ini tahun 2024, dan kamu ingin membeli barang tersebut tahun 2029 maka 2029-2024 = 5 tahun. Lalu dikalikan dengan 12 menjadi 60 bulan. Maka yang dimasukkan adalah 60 bulan.");
+
         HBox hBox1 = new HBox();
         hBox1.setId("hBoxinput");
-        hBox1.getChildren().addAll(textField1, bulan, error1);
+        hBox1.getChildren().addAll(textField1, bulan, error1, textField1Info);
 
         textField1.setOnKeyReleased(e -> {
             try {
@@ -68,9 +73,11 @@ public class Barang extends VBox implements Method {
         hargaBarang.setId("field");
         hargaBarang.setOnKeyReleased(event -> handleHargaBarangInput(hargaBarang, error));
 
+        Label hargaBarangInfo = Method.makeTooltip("Harga barang yang ingin kamu beli saat mengisi ini");
+
         HBox hBox2 = new HBox();
         hBox2.setId("hBoxinput");
-        hBox2.getChildren().addAll(rp1, hargaBarang, error);
+        hBox2.getChildren().addAll(rp1, hargaBarang, error, hargaBarangInfo);
 
         Label dp = new Label("% DP (Down Payment) yang ingin kamu bayarkan sebesar");
         dp.setId("input");
@@ -84,9 +91,12 @@ public class Barang extends VBox implements Method {
         Label persen = new Label("%");
         persen.setId("ket");
 
+        Label dpInfo = Method.makeTooltip(
+                "Down Payment (DP) atau Uang Muka.\n\nKalau kamu berencana membeli barang dengan sistem kredit, maka ada biaya awal yang harus kamu bayarkan, besaran DP biasanya berkisar antara 10-50%.\n\nKalau kamu berencana membeli barang secara cash, isi kolom dengan angka 100");
+
         HBox hBox3 = new HBox();
         hBox3.setId("hBoxinput");
-        hBox3.getChildren().addAll(downPayment, persen, error2);
+        hBox3.getChildren().addAll(downPayment, persen, error2, dpInfo);
 
         Label dpKamu = new Label("DP kamu setara dengan");
         dpKamu.setId("input");
@@ -123,9 +133,12 @@ public class Barang extends VBox implements Method {
         Label pokokUtang = new Label();
         pokokUtang.setId("pokokUtang");
 
+        Label pokokUtangInfo = Method.makeTooltip(
+                "Kalau kamu membeli barang dengan sistem kredit, maka besaran biaya yang dibayarkan oleh peminjam akan diitung sebagai utang.\n\nContoh: harga barangmu 200.000.000 dan kamu ingin membayar DP-nya sebesar 10% yaitu 20.000.000 maka pokok utang kamu adalah 180.000.000");
+
         HBox hBox6 = new HBox();
         hBox6.setId("hBoxinput");
-        hBox6.getChildren().addAll(rp3, pokokUtang);
+        hBox6.getChildren().addAll(rp3, pokokUtang, pokokUtangInfo);
 
         downPayment.setOnKeyReleased(
                 event -> handleDownPaymentInput(downPayment, error2, besarDp, pinjamanMu, pokokUtang));
@@ -142,14 +155,17 @@ public class Barang extends VBox implements Method {
         HBox buttonBox = new HBox();
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
         buttonBox.setPadding(new Insets(0, 50, 0, 20));
-        Button nextButton = new Button("next >>");
+
+        Button nextButton = new Button("Next >>");
         nextButton.setId("hasil");
 
         buttonBox.getChildren().add(nextButton);
 
         this.getChildren().add(buttonBox);
 
-        nextButton.setOnAction(event -> switchToSecondForm(buttonBox));
+        nextButton.setOnAction(event -> switchToSecondForm(buttonBox, capaiMimpi, hBox1, harga, hBox2, dp, hBox3,
+                dpKamu, hBox4, pinjaman, hBox5, utang,
+                hBox6, nextButton));
     }
 
     private void handleHargaBarangInput(TextField hargaBarang, Label error) {
@@ -239,7 +255,9 @@ public class Barang extends VBox implements Method {
         }
     }
 
-    private void switchToSecondForm(HBox buttonBox) {
+    private void switchToSecondForm(HBox buttonBox, Label capaiMimpi, HBox hBox1, Label harga, HBox hBox2, Label dp,
+            HBox hBox3, Label dpKamu, HBox hBox4, Label pinjaman, HBox hBox5, Label utang,
+            HBox hBox6, Button nextButton) {
         vBox.getChildren().clear();
 
         Label asumsi = new Label("Asumsi inflasi harga");
@@ -253,9 +271,12 @@ public class Barang extends VBox implements Method {
         error3.setId("error");
         asumsiInflasi.setOnKeyReleased(event -> handleRp4(asumsiInflasi, error3));
 
+        Label asumsiInflasiInfo = Method.makeTooltip(
+                "Secara sederhana, inflasi dapat diartikan sebagai penurunan nilai mata uang. Artinya, dengan jumlah uang yang sama, kamu dapat membeli lebih sedikit barang atau jasa dibandingkan sebelumnya.\n\nKamu bisa mencari data asumsi inflasi tahunan di website resmi bank Indonesia atau sumber terpercaya lainnya.");
+
         HBox hBox7 = new HBox();
         hBox7.setId("hBoxinput");
-        hBox7.getChildren().addAll(asumsiInflasi, persenTahun, error3);
+        hBox7.getChildren().addAll(asumsiInflasi, persenTahun, error3, asumsiInflasiInfo);
 
         Label total = new Label("Total uang yang kamu perlukan " + model.getBulanLagi() + " bulan lagi untuk bayar DP");
         total.setId("input");
@@ -266,9 +287,12 @@ public class Barang extends VBox implements Method {
         Label totalUang = new Label();
         totalUang.setId("rp4");
 
+        Label totalInfo = Method.makeTooltip(
+                "Dikarenakan inflasi setiap tahunnya, maka ini berpengaruh pada harga barang impianmu.\n\nContoh: pada tahun 2022 kamu ingin membeli barang seharga 10juta, tapi kamu baru bisa mengumpulkan uang untuk membayar DP di tahun 2027, dengan asumsi inflasi sebesar 5% / tahun, maka setiap tahun dari tahun 2022 - 2027, jumlah 10jt yang mau kamu akan bayarkan akan bertambah 5%, maka pada tahun 2027, jumlah yang harus kamu bayarkan menjadi sekitar 12jt.\n\nIni adalah total uang yang kamu perlukan untuk bayar DP.\n\nJika kamu memilih untuk bayar cash maka ini adalah total uang yang kamu perlukan untuk membayar harga barangmu sepenuhnya.");
+
         HBox hBox8 = new HBox();
         hBox8.setId("hBoxinput");
-        hBox8.getChildren().addAll(rp4, totalUang);
+        hBox8.getChildren().addAll(rp4, totalUang, totalInfo);
 
         Label uang = new Label("Uang yang kamu miliki saat ini untuk beli barang sebesar");
         uang.setId("input");
@@ -282,9 +306,12 @@ public class Barang extends VBox implements Method {
         Label error4 = new Label();
         error4.setId("error");
 
+        Label uangSaatIniInfo = Method.makeTooltip(
+                "Uang yang sudah kamu tabung saat ini untuk membeli barang yang kamu inginkan.\n\nContoh: jika uangmu saat ini berjumlah 10.000.000 tapi uang yang kamu sisihkan untuk membeli barang impianmu hanya 2.000.000 maka isi 2.000.000 pada kolom.");
+
         HBox hBox9 = new HBox();
         hBox9.setId("hBoxinput");
-        hBox9.getChildren().addAll(rp5, uangSaatIni, error4);
+        hBox9.getChildren().addAll(rp5, uangSaatIni, error4, uangSaatIniInfo);
 
         uangSaatIni.setOnKeyReleased(e -> {
             try {
@@ -316,9 +343,12 @@ public class Barang extends VBox implements Method {
         Label error5 = new Label();
         error5.setId("error");
 
+        Label targetInfo = Method.makeTooltip(
+                "Berapa banyak jumlah uang yang akan kamu tabung setiap bulannya untuk membeli barang ini.");
+
         HBox hBox10 = new HBox();
         hBox10.setId("hBoxinput");
-        hBox10.getChildren().addAll(rp6, target, error5);
+        hBox10.getChildren().addAll(rp6, target, error5, targetInfo);
 
         target.setOnKeyReleased(e -> {
             try {
@@ -349,9 +379,12 @@ public class Barang extends VBox implements Method {
         Label error6 = new Label();
         error6.setId("error");
 
+        Label lnvestProdukInfo = Method.makeTooltip(
+                "Dengan asumsi kamu akan menaruh uang tabunganmu pada instrumen investasi.\n\nContoh: Kamu ingin menaruh uangmu di Reksadana Pasar Uang pada sebuah aplikasi, dan disana diberikan keterangan bahwa return per-tahunnya adalah 5%, maka isikan angka 5 pada kolom di bawah.");
+
         HBox hBox11 = new HBox();
         hBox11.setId("hBoxinput");
-        hBox11.getChildren().addAll(lnvestProduk, investasi, error6);
+        hBox11.getChildren().addAll(lnvestProduk, investasi, error6, lnvestProdukInfo);
 
         Label berinvestasi = new Label("Kamu akan rutin berinvestasi selama");
         berinvestasi.setId("input");
@@ -391,9 +424,23 @@ public class Barang extends VBox implements Method {
         buttonBox.getChildren().clear();
         Button hasilButton = new Button("Lihat hasil strategimu");
         hasilButton.setId("hasil");
-        buttonBox.getChildren().add(hasilButton);
+        Button backButton = new Button("<< Back");
+        backButton.setId("hasil");
+
+        // Create a spacer
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        buttonBox.getChildren().addAll(backButton, spacer, hasilButton);
 
         hasilButton.setOnAction(event -> evaluatePlan(totalUang, uangSaatIni, target, lnvestProduk, rutin));
+        backButton.setOnAction(event -> {
+            vBox.getChildren().clear();
+            vBox.getChildren().addAll(capaiMimpi, hBox1, harga, hBox2, dp, hBox3, dpKamu, hBox4, pinjaman, hBox5, utang,
+                    hBox6);
+            buttonBox.getChildren().clear();
+            buttonBox.getChildren().add(nextButton);
+        });
     }
 
     private void updateRp4Label() {

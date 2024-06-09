@@ -1,5 +1,7 @@
 package id.test.test;
 
+import javafx.scene.layout.Region;
+import javafx.scene.layout.Priority;
 import id.test.test.HomeScene;
 import id.test.test.Models.DanaPensiunModel;
 import javafx.geometry.Insets;
@@ -29,31 +31,35 @@ public class DanaPensiun extends VBox implements Method {
         Label rp = new Label("Rp.");
         rp.setId("ket");
 
-        TextField textField1 = new TextField();
+        TextField textField1 = Method.createDoubleField(model::setPengeluaranPerBulan, "Masukkan nilai yang valid");
         textField1.setId("field");
 
         Label error1 = new Label();
         error1.setId("error");
 
+        Label textField1Info = Method.makeTooltip(
+                "Jumlah uang yang harus kamu keluarkan setiap bulannya untuk hidup. Termasuk biaya sewa/kos, makan, dll.");
+
         HBox hBox1 = new HBox();
         hBox1.setId("hBoxinput");
-        hBox1.getChildren().addAll(rp, textField1, error1);
+        hBox1.getChildren().addAll(rp, textField1, error1, textField1Info);
 
         Label pengeluaranPerTahun = new Label("Pengeluaran/tahun");
         pengeluaranPerTahun.setId("input");
-        pengeluaranPerTahun.setVisible(false);
 
         Label rp1 = new Label("Rp.");
         rp1.setId("ket");
-        rp1.setVisible(false);
 
         Label tahun = new Label();
         tahun.setId("tahun");
         tahun.setVisible(false);
 
+        Label pengeluaranPerTahunInfo = Method
+                .makeTooltip("Pengeluaranmu perbulan dikali 12.");
+
         HBox hBox2 = new HBox();
         hBox2.setId("hBoxinput");
-        hBox2.getChildren().addAll(rp1, tahun);
+        hBox2.getChildren().addAll(rp1, tahun, pengeluaranPerTahunInfo);
 
         Label usia = new Label("Usiamu sekarang");
         usia.setId("input");
@@ -67,9 +73,11 @@ public class DanaPensiun extends VBox implements Method {
         Label error2 = new Label();
         error2.setId("error");
 
+        Label textField2Info = Method.makeTooltip("Usia saat kamu mengisi ini.");
+
         HBox hBox3 = new HBox();
         hBox3.setId("hBoxinput");
-        hBox3.getChildren().addAll(textField2, usiasekarang, error2);
+        hBox3.getChildren().addAll(textField2, usiasekarang, error2, textField2Info);
 
         textField2.setOnKeyReleased(e -> {
             try {
@@ -101,9 +109,11 @@ public class DanaPensiun extends VBox implements Method {
         Label error3 = new Label();
         error3.setId("error");
 
+        Label textField3Info = Method.makeTooltip("Target usia kamu saat kamu sudah tidak lagi bekerja.");
+
         HBox hBox4 = new HBox();
         hBox4.setId("hBoxinput");
-        hBox4.getChildren().addAll(textField3, usiapensiun, error3);
+        hBox4.getChildren().addAll(textField3, usiapensiun, error3, textField3Info);
 
         textField3.setOnKeyReleased(e -> {
             try {
@@ -143,25 +153,28 @@ public class DanaPensiun extends VBox implements Method {
         Label error4 = new Label();
         error4.setId("error");
 
+        Label asumsiInflasiInfo = Method.makeTooltip(
+                "Secara sederhana, inflasi dapat diartikan sebagai penurunan nilai mata uang. Artinya, dengan jumlah uang yang sama, kamu dapat membeli lebih sedikit barang atau jasa dibandingkan sebelumnya.\n\nKamu bisa mencari data asumsi inflasi tahunan di website resmi bank Indonesia atau sumber terpercaya lainnya.");
+
         HBox hBox5 = new HBox();
         hBox5.setId("hBoxinput");
-        hBox5.getChildren().addAll(textField4, persen, error4);
+        hBox5.getChildren().addAll(textField4, persen, error4, asumsiInflasiInfo);
 
         Label pengeluaranpensiun = new Label("Pengeluaran tahunan saat mulai pensiun nanti");
         pengeluaranpensiun.setId("input");
-        pengeluaranpensiun.setVisible(false);
 
         Label rp2 = new Label("Rp.");
         rp2.setId("ket");
-        rp2.setVisible(false);
 
         Label pengeluarantahunan = new Label();
         pengeluarantahunan.setId("rp2");
         pengeluarantahunan.setVisible(false);
 
+        Label pengeluarantahunanInfo = Method.makeTooltip("Jumlah pengeluaranmu tiap tahun setelah terkena inflasi.");
+
         HBox hBox6 = new HBox();
         hBox6.setId("hBoxinput");
-        hBox6.getChildren().addAll(rp2, pengeluarantahunan);
+        hBox6.getChildren().addAll(rp2, pengeluarantahunan, pengeluarantahunanInfo);
 
         vBox.getChildren().addAll(pengeluaran, hBox1, pengeluaranPerTahun, hBox2, usia, hBox3, usia2, hBox4, inflasi,
                 hBox5, pengeluaranpensiun, hBox6);
@@ -174,7 +187,8 @@ public class DanaPensiun extends VBox implements Method {
         HBox buttonBox = new HBox();
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
         buttonBox.setPadding(new Insets(0, 50, 0, 20));
-        Button nextButton = new Button("next >>");
+
+        Button nextButton = new Button("Next >>");
         nextButton.setId("hasil");
 
         buttonBox.getChildren().add(nextButton);
@@ -187,13 +201,11 @@ public class DanaPensiun extends VBox implements Method {
                     double textField1Value = Double.parseDouble(textField1.getText());
                     model.setPengeluaranPerBulan(textField1Value);
                     error1.setText("");
-
-                    pengeluaranPerTahun.setVisible(true);
-                    rp1.setVisible(true);
                     tahun.setVisible(true);
-
                     updateTahunLabel();
                 } else {
+                    tahun.setVisible(false);
+                    tahun.setText("");
                     error1.setText("");
                     if (textField1 != null) {
                         textField1.setText("");
@@ -211,14 +223,12 @@ public class DanaPensiun extends VBox implements Method {
                     double textField4Value = Double.parseDouble(textField4.getText());
                     model.setAsumsiInflasiPerTahun(textField4Value);
                     error4.setText("");
-
-                    pengeluaranpensiun.setVisible(true);
-                    rp2.setVisible(true);
                     pengeluarantahunan.setVisible(true);
-
                     updateRp2Label();
                     model.setUangYangDibutuhkan();
                 } else {
+                    pengeluarantahunan.setVisible(false);
+                    pengeluarantahunan.setText("");
                     error4.setText("");
                     if (textField4 != null) {
                         textField4.setText("");
@@ -244,9 +254,12 @@ public class DanaPensiun extends VBox implements Method {
             Label uangYangDibutuhkan = new Label(Method.formatNumber(model.getUangYangDibutuhkan()));
             uangYangDibutuhkan.setId("uangYangDibutuhkan");
 
+            Label uangYangDibutuhkanInfo = Method.makeTooltip(
+                    "Aturan 4% (4% Rule) adalah strategi penarikan dana pensiun yang populer yang merekomendasikan untuk menarik tidak lebih dari 4% dari total dana pensiun Anda di tahun pertama pensiun, dan kemudian menyesuaikan jumlah penarikan setiap tahun untuk inflasi.");
+
             HBox hBox7 = new HBox();
             hBox7.setId("hBoxinput");
-            hBox7.getChildren().addAll(rp3, uangYangDibutuhkan);
+            hBox7.getChildren().addAll(rp3, uangYangDibutuhkan, uangYangDibutuhkanInfo);
 
             Label dana = new Label("Dana pensiun yang telah tersedia sampai saat ini");
             dana.setId("input");
@@ -260,9 +273,12 @@ public class DanaPensiun extends VBox implements Method {
             Label error5 = new Label();
             error5.setId("error");
 
+            Label danaPensiunInfo = Method.makeTooltip(
+                    "Jumlah tabungan untuk dana pensiun yang sudah terkumpul sampai dengan saat kamu mengisi ini.");
+
             HBox hBox8 = new HBox();
             hBox8.setId("hBoxinput");
-            hBox8.getChildren().addAll(rp4, danaPensiun, error5);
+            hBox8.getChildren().addAll(rp4, danaPensiun, error5, danaPensiunInfo);
 
             danaPensiun.setOnKeyReleased(e -> {
                 try {
@@ -295,9 +311,12 @@ public class DanaPensiun extends VBox implements Method {
             Label error6 = new Label();
             error6.setId("error");
 
+            Label targetInvestasiInfo = Method.makeTooltip(
+                    "Berapa banyak jumlah uang yang akan kamu tabung setiap bulannya untuk membeli barang ini.");
+
             HBox hBox9 = new HBox();
             hBox9.setId("hBoxinput");
-            hBox9.getChildren().addAll(rp5, targetInvestasi, error6);
+            hBox9.getChildren().addAll(rp5, targetInvestasi, error6, targetInvestasiInfo);
 
             targetInvestasi.setOnKeyReleased(e -> {
                 try {
@@ -330,9 +349,12 @@ public class DanaPensiun extends VBox implements Method {
             Label error7 = new Label();
             error7.setId("error");
 
+            Label returnInvestasiInfo = Method.makeTooltip(
+                    "Dengan asumsi kamu akan menaruh uang tabunganmu pada instrumen investasi.\n\nContoh: Kamu ingin menaruh uangmu di Reksadana Pasar Uang pada sebuah aplikasi, dan disana diberikan keterangan bahwa return per-tahunnya adalah 5%, maka isikan angka 5 pada kolom di bawah.");
+
             HBox hBox10 = new HBox();
             hBox10.setId("hBoxinput");
-            hBox10.getChildren().addAll(returnInvestasi, persenTahun, error7);
+            hBox10.getChildren().addAll(returnInvestasi, persenTahun, error7, returnInvestasiInfo);
 
             Label pensiun = new Label("Kamu akan pensiun dalam");
             pensiun.setId("input");
@@ -373,9 +395,25 @@ public class DanaPensiun extends VBox implements Method {
             buttonBox.getChildren().clear();
             Button hasilButton = new Button("Lihat hasil strategimu");
             hasilButton.setId("hasil");
-            buttonBox.getChildren().add(hasilButton);
+            Button backButton = new Button("<< Back");
+            backButton.setId("hasil");
+
+            // Create a spacer
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            buttonBox.getChildren().addAll(backButton, spacer, hasilButton);
             hasilButton.setOnAction(e -> evaluatePlan(textField1, textField2, textField3, textField4, danaPensiun,
                     targetInvestasi, returnInvestasi));
+            backButton.setOnAction(e -> {
+                vBox.getChildren().clear();
+                vBox.getChildren().addAll(pengeluaran, hBox1, pengeluaranPerTahun, hBox2, usia, hBox3, usia2, hBox4,
+                        inflasi,
+                        hBox5, pengeluaranpensiun, hBox6);
+                buttonBox.getChildren().clear();
+                buttonBox.getChildren().add(nextButton);
+
+            });
         });
     }
 
