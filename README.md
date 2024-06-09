@@ -36,3 +36,27 @@ Dengan dashboard utama yang memberikan ringkasan kondisi keuangan dan visualisas
 
 ## Link Repository GitHub
 [https://github.com/seizenB/Fun-Goals](https://github.com/seizenB/Fun-Goals)
+
+## Screenshots
+### Login Scene
+![Login Scene](https://github.com/seizenB/Fun-Goals/tree/main/readme/LoginScene.png)
+
+### Menu Sign Up
+![Menu Sign Up](https://github.com/seizenB/Fun-Goals/tree/main/readme/MenuSignup.png)
+
+### Menu Sign in
+![Menu Sign in](https://github.com/seizenB/Fun-Goals/tree/main/readme/MenuSignin.png)
+
+### Scene Barang
+![Scene Barang](https://github.com/seizenB/Fun-Goals/tree/main/readme/Scene_Barang1.jpeg)
+![Scene Barang](https://github.com/seizenB/Fun-Goals/tree/main/readme/Scene_Barang2.png)
+
+### Scene Dana Darurat
+![Scene Dana Darurat](https://github.com/seizenB/Fun-Goals/tree/main/readme/Scene_DanaDarurat.jpeg)
+
+### Scene Dana Pensiun
+![Scene Dana Pensiun](https://github.com/seizenB/Fun-Goals/tree/main/readme/Scene_DanaPensiun1.jpeg)
+![Scene Dana Pensiun](https://github.com/seizenB/Fun-Goals/tree/main/readme/Scene_DanaPensiun2.png)
+
+## Pengujian Pada Aplikasi
+![Table](https://github.com/seizenB/Fun-Goals/tree/main/readme/Table.png)
